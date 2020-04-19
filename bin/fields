@@ -1,0 +1,5 @@
+#! /bin/bash
+
+fields=$1
+
+awk "{print $fields}"

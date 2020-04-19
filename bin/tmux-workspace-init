@@ -1,0 +1,5 @@
+#! /usr/bin/env fish
+
+cp ~/bin/.tmux.template .tmux
+chmod +x .tmux
+cd .

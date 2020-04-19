@@ -1,0 +1,7 @@
+#! /bin/zsh
+
+tmux \
+  new-session -d -s $sessionName -n emacs 'emacs .' \;\
+  new-window -n fish \;\
+  new-window -n git\;\
+  selectw -t emacs

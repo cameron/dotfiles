@@ -1,0 +1,1 @@
+for S in `tmux ls | grep $1 | awk '{ print $1 }' | tr -d ':'`; do tmux kill-session -t $S; done;

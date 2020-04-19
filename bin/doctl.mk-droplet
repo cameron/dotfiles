@@ -1,0 +1,46 @@
+#! /bin/bash
+
+if [[ -z "$1" ]]; then
+   echo "Usage: doctl.mk-droplet <name>"
+   exit 1
+fi
+
+name=$1
+
+id=$(doctl compute droplet create $name \
+      --size s-1vcpu-1gb \
+      --image debian-10-x64 \
+      --ssh-keys 12252656 \
+      --region sfo2 \
+      --no-header \
+      --format ID)
+
+if [[ "$?" != "0" ]]; then
+   echo $res
+   exit 1
+fi
+
+# turns out there is a --wait flag, but let's keep this in case we want
+# to do anything fancier with the id in the meantime...
+start=$(date +%s)
+while true; do
+  elapsed=$(($(date +%s) - $start))
+  echo -ne " Waiting for droplet to come online... $elapsed\r"
+  status=$(doctl compute d get $id --format Status --no-header)
+  if [[ "$status" == "active" ]]; then
+    break
+  fi
+  sleep 1
+done
+
+ip=$(doctl compute d get $id --format PublicIPv4 --no-header)
+
+echo "
+Host $name
+  Hostname $ip
+  User root
+" >> ~/.ssh/config
+
+echo "
+$name ansible_host=$ip ansible_user=root
+">> /etc/ansible/hosts

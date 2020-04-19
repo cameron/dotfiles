@@ -1,0 +1,30 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*- 
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("config.fish"
+ (filename . "~/.config/fish/config.fish")
+ (front-context-string . "set PATH \"$HOME/")
+ (rear-context-string)
+ (position . 1))
+("bin"
+ (filename . "~/src/dotfiles/bin/")
+ (front-context-string . ".digital-ocean-r")
+ (rear-context-string . "59 Mar 22 00:14 ")
+ (position . 296))
+("tmux.conf.symlink"
+ (filename . "~/src/dotfiles/tmux/tmux.conf.symlink")
+ (front-context-string . "\n# mouse scrolli")
+ (rear-context-string)
+ (position . 1))
+("zshrc.symlink"
+ (filename . "~/src/dotfiles/zsh/zshrc.symlink")
+ (front-context-string . "# Autoload zsh f")
+ (rear-context-string)
+ (position . 1))
+("init.el"
+ (filename . "~/src/dotfiles/.emacs.d.symlink/init.el")
+ (front-context-string . "\n\n\n;;\n;; package")
+ (rear-context-string)
+ (position . 1))
+)

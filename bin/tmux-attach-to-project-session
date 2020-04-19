@@ -1,0 +1,20 @@
+#! /bin/bash
+
+sessionName=$1
+
+# support multiple monitors
+sessions=`tmux list-sessions | grep $sessionName | grep -v attached`
+if [ $? -eq 1 ]; then
+
+    secondarySessionName=$sessionName-`date +%s`
+
+    tmux \
+        new-session -t $sessionName -s $secondarySessionName \;\
+        attach -d -t $secondarySessionName \;\
+        select-window -t 2
+    exit 0
+fi
+
+sessionName=`echo $sessions | head -1 | grep -o "^[^:]*" | head -1`
+
+tmux attach -d -t $sessionName

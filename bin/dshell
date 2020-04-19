@@ -1,0 +1,15 @@
+#! /bin/bash
+
+cmd=''
+if [ -n "${2+x}" ]; then
+  cmd="-c '${@: (($#-3))}'"
+fi
+
+container=$(docker ps | grep $1 | awk "{print \$1}" | head -1)
+if [ -z "$container" ]; then
+  echo "No container matching $1"
+  exit
+fi
+
+# eval apparently necessary for the sake of $cmd
+eval "docker exec -it $container bash $cmd"

@@ -1,0 +1,19 @@
+# os x
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# temp files
+*~
+\#*
+
+# cambo
+.#*
+.tmux
+.projectile
+.notes.md
+.ignore
