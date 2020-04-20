@@ -8,6 +8,8 @@ function fish_prompt
   echo (pwd | sed "s/$escaped_home/~/") "> "
 end
 
+set fish_greeting
+
 function __create_and_or_attach_to_tmux --on-variable PWD --description "\
 If the switched-to directory has a .tmux file, attempt to attach to an
 exiting tmux session according to the name of the directory. If such a
