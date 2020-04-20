@@ -15,6 +15,8 @@
                                expand-region
                                go-mode
                                ag
+                               eglot
+                               yasnippet
                                projectile
                                json-mode
                                yaml-mode))
@@ -105,14 +107,7 @@
 ;(add-to-list 'grep-find-ignored-files "*#")
 
 
-;; theme
-;(setq solarized-high-contrast-mode-line t)
-;(setq solarized-distinct-fringe-background t)
-;(setq solarized-use-more-italic t)
 (load-theme 'suscolors t)
-
-;; light theme
-;(load-theme 'tango-plus)
 
 ;; auto-close () and {}
 (electric-pair-mode)
