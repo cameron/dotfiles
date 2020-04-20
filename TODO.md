@@ -1,0 +1,4 @@
+- automatic updates
+  - ? git pull via cron
+- automatically add new files to projectile's project cache
+  - ? setup entr to watch the project directory and touch .projectile

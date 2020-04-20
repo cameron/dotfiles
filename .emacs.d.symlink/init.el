@@ -5,8 +5,9 @@
 (package-initialize)
 ;(package-refresh-contents)
 
-
 (setq install-these-packages '(ace-jump-mode
+                               auto-complete
+                               smex
                                flx-ido
                                magit
                                expand-region
@@ -24,8 +25,6 @@
 (dolist (package install-these-packages)
   (unless (package-installed-p package)
     (package-install package)))
-
-(require 'ag)
 
 (setq auto-save-file-name-transforms
   `((".*" "~/.emacs.d/autosaves" t)))
@@ -48,7 +47,7 @@
  '(elm-indent-offset 2)
  '(elm-tags-on-save t)
  '(frame-background-mode (quote dark))
- '(js-indent-level 2)
+ '(js-indent-level 2 t)
  '(js2-basic-offset 2)
  '(js2-strict-inconsistent-return-warning nil)
  '(js2-strict-missing-semi-warning nil)
@@ -57,7 +56,7 @@
  '(js3-consistent-level-indent-inner-bracket t)
  '(package-selected-packages
    (quote
-    (yasnippet tide yaml-mode go-mode ctags expand-region column-marker json-mode ace-jump-mode ace-jump ace-jumpe company company-mode magit flx-ido projectile helm)))
+    (ivy auto-complete smex yasnippet tide yaml-mode go-mode ctags expand-region column-marker json-mode ace-jump-mode ace-jump ace-jumpe company company-mode magit flx-ido projectile helm)))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
    (quote
@@ -88,6 +87,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(dired-ignored ((t (:inherit brightgreen))))
+ '(font-lock-comment-face ((t (:foreground "#828282"))))
  '(js2-external-variable ((t (:foreground "color-33"))))
  '(js2-function-call ((t (:inherit color-229))))
  '(js3-external-variable-face ((t (:foreground "color-51"))))
@@ -95,6 +95,10 @@
  '(linum ((t (:foreground "brightgreen" :weight bold))))
  '(region ((t (:background "color-25"))))
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "color-84")))))
+
+(require 'ag)
+
+(delete-selection-mode 1) ;; replace region with inserted text
 
 ;; auto-close () and {}
 (electric-pair-mode)
@@ -131,7 +135,7 @@
 (setq mac-command-modifier 'super)
 (global-unset-key (kbd "M-}"))
 
-
+;; read somewhere that C-x ought to prefix general commands, and C-m major mode-specific ones
 (global-unset-key (kbd "C-t"))
 (global-unset-key (kbd "M-t"))
 (global-set-key (kbd "C-t") 'transpose-sexps)
@@ -141,16 +145,12 @@
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-l") 'goto-line)
 (global-set-key (kbd "M-e") 'eval-buffer)
-(global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-c") 'comment-or-uncomment-region)
-(global-set-key (kbd "C-c m") 'compile)
 (global-set-key (kbd "C-x C-b") 'projectile-find-file)
 (global-set-key (kbd "C-x b") 'ido-switch-buffer)
 (global-set-key (kbd "C-x g") 'projectile-grep)
 (global-set-key (kbd "C-x C-x") 'pop-global-mark)
 (global-unset-key (kbd "ESC <left>"))
-(global-set-key (kbd "ESC <left>") 'previous-buffer)
-(global-set-key (kbd "ESC <right>") 'next-buffer)
 (global-unset-key (kbd "C-x m"))
 (global-set-key (kbd "C-x C-m") 'call-last-kbd-macro)
 (global-unset-key (kbd "M-j"))
@@ -180,10 +180,6 @@
 (global-unset-key (kbd "C-x C-h"))
 (global-set-key (kbd "C-x C-h") 'hs-toggle-hiding)
 
-(require 'expand-region)
-(global-set-key (kbd "M-;") 'er/expand-region)
-
-
 (defun open-current-file-in-finder ()
   (interactive)
   (shell-command "open -R ."))
@@ -212,7 +208,9 @@
 (add-to-list 'projectile-globally-ignored-files "*#*")
 (add-to-list 'projectile-globally-ignored-files "*.log*") ;; this is a little sketch
 
-
+;;
+;; tide for typescript
+;;
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
@@ -244,9 +242,10 @@
 (require 'eglot)
 (add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server" "--stdio")))
 
-; disable flymake
+; disable flymake when eglot is active
 (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
 
+; 
 (use-package doom-themes
   :config
   ;; Global settings (defaults)
@@ -265,3 +264,19 @@
   
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+
+;
+;; smex -- ido-like M-x replacement
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; vanilla M-x
+
+(require 'expand-region)
+
+(global-unset-key (kbd "C-q"))
+(global-set-key (kbd "C-q") 'er/expand-region)
+(global-set-key (kbd "C-SPC") 'set-mark-command)
+
+;; in case one wants to map one key to another...
+;; (global-set-key (kbd "C-h") (kbd "<backspace>"))
+

@@ -9,7 +9,7 @@
 .emacs.d.symlink/.lsp-session*
 .emacs.d.symlink/auto-saves-list
 .emacs.d.symlink/autosaves
-
+.emacs.d.symlink/ac-comphist.dat
 .projectile
 .DS_Store
 *.elc
