@@ -1,15 +1,12 @@
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("marmalade" . "http://marmalade-repo.org/packages/")
         ("melpa" . "http://stable.melpa.org/packages/")))
 
 (package-initialize)
-;(package-refresh-contents)
+(package-refresh-contents)
 
 
-(setq install-these-packages '(smart-tab
-                               ace-jump-mode
-                               rjsx-mode
+(setq install-these-packages '(ace-jump-mode
                                flx-ido
                                magit
                                expand-region
@@ -51,7 +48,7 @@
  '(elm-indent-offset 2)
  '(elm-tags-on-save t)
  '(frame-background-mode (quote dark))
- '(js-indent-level 2 t)
+ '(js-indent-level 2)
  '(js2-basic-offset 2)
  '(js2-strict-inconsistent-return-warning nil)
  '(js2-strict-missing-semi-warning nil)
@@ -60,7 +57,7 @@
  '(js3-consistent-level-indent-inner-bracket t)
  '(package-selected-packages
    (quote
-    (yasnippet tide yaml-mode go-mode ctags expand-region column-marker json-mode ace-jump-mode ace-jump ace-jumpe company company-mode magit flx-ido projectile rjsx rjsx-mode helm smart-tab)))
+    (yasnippet tide yaml-mode go-mode ctags expand-region column-marker json-mode ace-jump-mode ace-jump ace-jumpe company company-mode magit flx-ido projectile helm)))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
    (quote
@@ -168,12 +165,9 @@
 ;; follow symlinks w/warning, but w/o prompt
 (setq vc-follow-symlinks nil)
 
-;; rjsx mode for all js
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 (menu-bar-mode -1)
-
-(global-smart-tab-mode)
 
 (show-paren-mode)
 
