@@ -3,7 +3,7 @@
         ("melpa" . "http://stable.melpa.org/packages/")))
 
 (package-initialize)
-(package-refresh-contents)
+;(package-refresh-contents)
 
 
 (setq install-these-packages '(ace-jump-mode
