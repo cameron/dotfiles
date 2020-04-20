@@ -3,11 +3,6 @@ set PATH "$HOME/bin" "$HOME/.dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$
 set -U EDITOR emacs
 set -x EDITOR emacs # git didn't pick up the -U invocation
 
-# function fish_prompt
-#   set escaped_home (echo $HOME | sed "s/\//\\\\\//g")
-#   echo (pwd | sed "s/$escaped_home/~/") "> "
-# end
-
 set fish_greeting
 
 function __create_and_or_attach_to_tmux --on-variable PWD --description "\
