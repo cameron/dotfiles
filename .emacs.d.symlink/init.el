@@ -16,18 +16,17 @@
                                go-mode
                                ag
                                eglot
+                               doom-themes
+                               use-package
                                yasnippet
                                projectile
                                json-mode
                                yaml-mode))
 
 
-
 (dolist (package install-these-packages)
   (unless (package-installed-p package)
     (package-install package)))
-
-(add-to-list 'load-path "~/.emacs.d/thirdparty/")
 
 (require 'ag)
 
@@ -41,11 +40,6 @@
  ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote (("." . "~/.emacs.d/autosaves"))))
  '(css-indent-offset 2)
- '(custom-enabled-themes (quote (solarized-dark)))
- '(custom-safe-themes
-   (quote
-    ("ecb9fe1d5b165a35499191a909b2b5710a52935614058b327a39bfbbb07c7dc8" "b9b1a8d2ec1d5c17700e1a09256f33c2520b26f49980ed9e217e444c381279a9" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
- '(custom-theme-directory "~/.emacs.d/themes/")
  '(eglot-put-doc-in-help-buffer (lambda (var) nil))
  '(electric-pair-mode t)
  '(elm-indent-after-keywords
@@ -57,7 +51,7 @@
  '(elm-indent-offset 2)
  '(elm-tags-on-save t)
  '(frame-background-mode (quote dark))
- '(js-indent-level 2)
+ '(js-indent-level 2 t)
  '(js2-basic-offset 2)
  '(js2-strict-inconsistent-return-warning nil)
  '(js2-strict-missing-semi-warning nil)
@@ -66,7 +60,7 @@
  '(js3-consistent-level-indent-inner-bracket t)
  '(package-selected-packages
    (quote
-    (yasnippet tide yaml-mode suscolors-theme go-mode solarized-theme ctags expand-region column-marker json-mode ace-jump-mode ace-jump ace-jumpe company company-mode magit flx-ido projectile rjsx rjsx-mode helm smart-tab)))
+    (yasnippet tide yaml-mode go-mode ctags expand-region column-marker json-mode ace-jump-mode ace-jump ace-jumpe company company-mode magit flx-ido projectile rjsx rjsx-mode helm smart-tab)))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
    (quote
@@ -90,6 +84,7 @@
  '(tab-width 2)
  '(tramp-default-method "ssh")
  '(tramp-mode nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -103,11 +98,6 @@
  '(linum ((t (:foreground "brightgreen" :weight bold))))
  '(region ((t (:background "color-25"))))
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "color-84")))))
-
-;(add-to-list 'grep-find-ignored-files "*#")
-
-
-(load-theme 'suscolors t)
 
 ;; auto-close () and {}
 (electric-pair-mode)
@@ -249,8 +239,6 @@
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
-(add-to-list 'load-path
-              "~/.emacs.d/plugins/yasnippet")
 (require 'yasnippet)
 (yas-global-mode 1)
 
@@ -264,3 +252,22 @@
 
 ; disable flymake
 (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
+
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-one t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+  (doom-themes-treemacs-config)
+  
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
