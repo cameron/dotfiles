@@ -7,10 +7,12 @@
 
 (setq install-these-packages '(ace-jump-mode
                                auto-complete
+                               fish-mode
                                smex
                                flx-ido
                                magit
                                expand-region
+                               ivy
                                go-mode
                                ag
                                eglot
@@ -20,14 +22,11 @@
                                projectile
                                json-mode
                                yaml-mode))
-
+(auto-complete-mode)
 
 (dolist (package install-these-packages)
   (unless (package-installed-p package)
     (package-install package)))
-
-(setq auto-save-file-name-transforms
-  `((".*" "~/.emacs.d/autosaves" t)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -56,7 +55,7 @@
  '(js3-consistent-level-indent-inner-bracket t)
  '(package-selected-packages
    (quote
-    (ivy auto-complete smex yasnippet tide yaml-mode go-mode ctags expand-region column-marker json-mode ace-jump-mode ace-jump ace-jumpe company company-mode magit flx-ido projectile helm)))
+    (fish-mode ivy auto-complete smex yasnippet tide yaml-mode go-mode ctags expand-region column-marker json-mode ace-jump-mode ace-jump ace-jumpe company company-mode magit flx-ido projectile helm)))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
    (quote
@@ -72,6 +71,7 @@
        (format " Projectile[%s]"
                (projectile-project-name))))))
  '(python-indent-offset 2)
+ '(sh-basic-offset 2)
  '(sh-indentation 2)
  '(solarized-broken-srgb t)
  '(solarized-termcolors 256)
@@ -88,6 +88,7 @@
  ;; If there is more than one, they won't work right.
  '(dired-ignored ((t (:inherit brightgreen))))
  '(font-lock-comment-face ((t (:foreground "#828282"))))
+ '(font-lock-variable-name-face ((t (:foreground "color-183"))))
  '(js2-external-variable ((t (:foreground "color-33"))))
  '(js2-function-call ((t (:inherit color-229))))
  '(js3-external-variable-face ((t (:foreground "color-51"))))
@@ -96,12 +97,17 @@
  '(region ((t (:background "color-25"))))
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "color-84")))))
 
+(setq auto-save-file-name-transforms
+  `((".*" "~/.emacs.d/autosaves" t)))
+
 (require 'ag)
 
 (delete-selection-mode 1) ;; replace region with inserted text
 
 ;; auto-close () and {}
 (electric-pair-mode)
+
+(ivy-mode)
 
 ;;
 ;; flx-ido config

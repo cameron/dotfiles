@@ -1,4 +1,4 @@
-set PATH "$HOME/bin" "$HOME/.dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" $PATH
+set PATH "$HOME/bin" "$HOME/src/dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" $PATH
 
 set -U EDITOR emacs
 set -x EDITOR emacs # git didn't pick up the -U invocation

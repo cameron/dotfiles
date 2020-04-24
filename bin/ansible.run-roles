@@ -1,0 +1,32 @@
+#! /bin/bash
+
+# run roles like playlists
+
+if [[ -z "$2" ]]; then
+  echo "Usage: ansible.run-roles <some,roles,to,run> <...playbook args>
+
+E.g., $0 git-server,docker-registry -l my-host
+
+(The script generates a short playbook with the specified roles, and then runs ansible-playbook)
+"
+  exit 1
+fi
+
+
+playbook=.playbook.yml
+
+echo "
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+  roles:" > $playbook
+
+IFS=','
+for role in "$1"; do
+  echo "  - $role" >> $playbook
+done
+
+ansible-playbook .playbook.yml "${@:2}"
+
+
