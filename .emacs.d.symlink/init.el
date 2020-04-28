@@ -12,7 +12,6 @@
                                flx-ido
                                magit
                                expand-region
-                               ivy
                                go-mode
                                ag
                                eglot
@@ -102,18 +101,16 @@
 ;; auto-close () and {}
 (electric-pair-mode)
 
-(ivy-mode)
-
 ;;
 ;; flx-ido config
 ;;
-;(ido-mode 1)
-;(ido-everywhere 1)
-;(flx-ido-mode 1)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
 
 ;; disable ido faces to see flx highlights.
-;(setq ido-enable-flex-matching t)
-;(setq ido-use-faces nil)
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
 
 ;;
 ;; personal config

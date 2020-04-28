@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("config.fish"
+(("TIL.md"
+ (filename . "~/src/dotfiles/TIL.md")
+ (front-context-string . "# Today I Learne")
+ (rear-context-string)
+ (position . 1))
+("config.fish"
  (filename . "~/.config/fish/config.fish")
  (front-context-string . "set PATH \"$HOME/")
  (rear-context-string)

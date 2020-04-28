@@ -1,6 +1,14 @@
 # Today I Learned
 _Technical snippets and sizzle_
 
+# Durable Nomenclature for Shell Helper Scripts
+_4/28/2020_
+"Shellpers". Sorry.
+
+Do you also sometimes write short wrapper scripts for commonly used shell commands? Like, I was tired of saying `doctl compute d create --image debian-10-x64 --size s-1vcpu-1gb --ssh-keys 123 --region sfo2`, so I wrote a wrapper (which accepts a name and a ram argument), and it went in `dotfiles/bin`, next to a small graveyard of similar scripts with terse, pithy names that don't always perfectly refresh my memory as to their intent after months of disuse (which is probably a good sign I can delete them, but nevermind).
+
+In the course of cleaning out my dotfiles recently, I adopted a pattern for standarized shellper nomenclature: `<wrapped-command>.<slug>`. So, my `doctl` wrapper to create a droplet became `doctl.mk-droplet`. This makes rediscovering your helpers easy if you stray for too long to keep them all at your fingertips. Assuming you have some decent autocomplete configured in your shell, you'll get a listing of all relevant wrapers just by typing the beginning of the command you can't be bothered to complete.
+
 # DNS as Load Balancer
 _4/23/2020_
 - multiple DNS A/AAAA records for the same value can act as a basic load balancer
