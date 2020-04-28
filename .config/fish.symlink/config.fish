@@ -20,7 +20,7 @@ new one.
        set -x TMUX_PROJECT $sessionName
        ./.tmux # TODO handle errors in this script better
      end
-     tmux-attach-to-project-session $sessionName
+     tmux.attach-to-project-session $sessionName
      set -e TMUX_PROJECT
    end
 end

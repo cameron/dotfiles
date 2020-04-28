@@ -53,9 +53,6 @@
  '(js2-strict-trailing-comma-warning nil)
  '(js3-boring-indentation t)
  '(js3-consistent-level-indent-inner-bracket t)
- '(package-selected-packages
-   (quote
-    (fish-mode ivy auto-complete smex yasnippet tide yaml-mode go-mode ctags expand-region column-marker json-mode ace-jump-mode ace-jump ace-jumpe company company-mode magit flx-ido projectile helm)))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
    (quote
@@ -87,8 +84,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(dired-ignored ((t (:inherit brightgreen))))
- '(font-lock-comment-face ((t (:foreground "#828282"))))
- '(font-lock-variable-name-face ((t (:foreground "color-183"))))
  '(js2-external-variable ((t (:foreground "color-33"))))
  '(js2-function-call ((t (:inherit color-229))))
  '(js3-external-variable-face ((t (:foreground "color-51"))))
@@ -112,13 +107,13 @@
 ;;
 ;; flx-ido config
 ;;
-(ido-mode 1)
-(ido-everywhere 1)
-(flx-ido-mode 1)
+;(ido-mode 1)
+;(ido-everywhere 1)
+;(flx-ido-mode 1)
 
 ;; disable ido faces to see flx highlights.
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
+;(setq ido-enable-flex-matching t)
+;(setq ido-use-faces nil)
 
 ;;
 ;; personal config
@@ -153,7 +148,7 @@
 (global-set-key (kbd "M-e") 'eval-buffer)
 (global-set-key (kbd "M-c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-x C-b") 'projectile-find-file)
-(global-set-key (kbd "C-x b") 'ido-switch-buffer)
+;(global-set-key (kbd "C-x b") 'ido-switch-buffer)
 (global-set-key (kbd "C-x g") 'projectile-grep)
 (global-set-key (kbd "C-x C-x") 'pop-global-mark)
 (global-unset-key (kbd "ESC <left>"))

@@ -1,0 +1,19 @@
+#! /bin/bash
+
+img=$(docker images | grep dummy)
+
+if [[ -z "$img" ]]; then
+  echo "dummy image missing; building..."
+  pushd ~/src/systemd-in-docker/
+  docker build -t dummy .
+  popd
+fi
+
+id=$(docker ps | grep dummy | awk '{print $1}')
+
+if [[ -z "$id" ]]; then
+  echo "dummy container not running; recreating..."
+  # run as a daemon instead of -it /bin/bash so systemd takes control
+  docker run -d --privileged -p 2222:22 --rm --name dummy dummy
+  sleep 1
+fi

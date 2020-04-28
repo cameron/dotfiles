@@ -1,14 +1,18 @@
 #! /bin/bash
 
-if [[ -z "$1" ]]; then
-   echo "Usage: doctl.mk-droplet <name>"
+name=$1
+if [[ -z "$name" ]]; then
+   echo "Usage: doctl.mk-droplet <name> [<gb-ram>]"
    exit 1
 fi
 
-name=$1
+ram=$2
+if [[ -z "$ram" ]]; then
+  ram=1
+fi
 
 id=$(doctl compute droplet create $name \
-      --size s-1vcpu-1gb \
+      --size s-1vcpu-${ram}gb \
       --image debian-10-x64 \
       --ssh-keys 12252656 \
       --region sfo2 \
@@ -41,6 +45,5 @@ Host $name
   User root
 " >> ~/.ssh/config
 
-echo "
-$name ansible_host=$ip ansible_user=root
+echo "$name ansible_host=$ip ansible_user=root
 ">> /etc/ansible/hosts

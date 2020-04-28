@@ -1,2 +1,0 @@
-#! /bin/bash
-docker run -d --privileged -p 2222:22 --rm --name deb-test deb-test
