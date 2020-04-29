@@ -11,9 +11,10 @@ Icon
 *~
 \#*
 
-# cambo
+# personal
 .#*
 .tmux
+.tmux.cleanup
 .projectile
 .notes.md
 .ignore
