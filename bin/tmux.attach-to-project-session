@@ -18,3 +18,7 @@ fi
 sessionName=`echo $sessions | head -1 | grep -o "^[^:]*" | head -1`
 
 tmux attach -d -t $sessionName
+
+if [[ -f .tmux.cleanup ]]; then
+  ./.tmux.cleanup
+fi

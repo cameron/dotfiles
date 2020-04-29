@@ -45,7 +45,7 @@
  '(elm-indent-offset 2)
  '(elm-tags-on-save t)
  '(frame-background-mode (quote dark))
- '(js-indent-level 2 t)
+ '(js-indent-level 2)
  '(js2-basic-offset 2)
  '(js2-strict-inconsistent-return-warning nil)
  '(js2-strict-missing-semi-warning nil)
@@ -83,6 +83,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(dired-ignored ((t (:inherit brightgreen))))
+ '(font-lock-comment-face ((t (:foreground "color-240"))))
  '(js2-external-variable ((t (:foreground "color-33"))))
  '(js2-function-call ((t (:inherit color-229))))
  '(js3-external-variable-face ((t (:foreground "color-51"))))
@@ -153,6 +154,8 @@
 (global-set-key (kbd "C-x C-m") 'call-last-kbd-macro)
 (global-unset-key (kbd "M-j"))
 (global-set-key (kbd "M-j") 'ace-jump-word-mode)
+(global-unset-key (kbd "M-i"))
+(global-set-key (kbd "M-i") 'indent-rigidly)
 
 ;; no tabs
 (setq-default indent-tabs-mode nil)
@@ -205,21 +208,6 @@
 
 (add-to-list 'projectile-globally-ignored-files "*#*")
 (add-to-list 'projectile-globally-ignored-files "*.log*") ;; this is a little sketch
-
-;;
-;; tide for typescript
-;;
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
-  (company-mode +1))
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)

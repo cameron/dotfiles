@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("TIL.md"
+(("learning.md"
+ (filename . "~/src/dotfiles/.emacs.d.symlink/learning.md")
+ (front-context-string . "- expand region ")
+ (rear-context-string)
+ (position . 1))
+("TIL.md"
  (filename . "~/src/dotfiles/TIL.md")
  (front-context-string . "# Today I Learne")
  (rear-context-string)
