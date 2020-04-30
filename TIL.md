@@ -1,6 +1,12 @@
 # Today I Learned
 _Technical snippets and sizzle_
 
+# Google First, Google Twice
+
+Before spending a late night (ahem; two) trying to minimize a thirdparty sdk bundle size by parsing and manipulating the ast (definitely don't try to do it with bash!) to strip out unneeded code, make sure to check their build tools for options to do so :)
+
+By the way, esprima is really fun :) 
+
 # Durable Nomenclature for Shell Helper Scripts
 _4/28/2020_
 "Shellpers". Sorry.

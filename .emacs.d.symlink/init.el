@@ -12,6 +12,7 @@
                                flx-ido
                                magit
                                expand-region
+                               elm-mode
                                go-mode
                                ag
                                eglot
@@ -53,6 +54,9 @@
  '(js2-strict-trailing-comma-warning nil)
  '(js3-boring-indentation t)
  '(js3-consistent-level-indent-inner-bracket t)
+ '(package-selected-packages
+   (quote
+    (elm-mode js2-mode yasnippet yaml-imenu use-package smex projectile magit json-mode ivy go-mode flx-ido fish-mode expand-region eglot doom-themes auto-complete ag ace-jump-mode)))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
    (quote
