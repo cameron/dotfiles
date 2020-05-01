@@ -13,21 +13,27 @@
                                magit
                                expand-region
                                elm-mode
+                               lsp-mode
+                               company
                                go-mode
                                ag
-                               eglot
                                doom-themes
                                use-package
                                yasnippet
                                projectile
                                json-mode
                                yaml-mode))
-(auto-complete-mode)
-
 
 (dolist (package install-these-packages)
   (unless (package-installed-p package)
     (package-install package)))
+
+
+(add-hook 'after-init-hook 'global-company-mode)
+
+(require 'lsp-mode)
+(add-hook 'elm-mode-hook #'lsp)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -56,7 +62,7 @@
  '(js3-consistent-level-indent-inner-bracket t)
  '(package-selected-packages
    (quote
-    (elm-mode js2-mode yasnippet yaml-imenu use-package smex projectile magit json-mode ivy go-mode flx-ido fish-mode expand-region eglot doom-themes auto-complete ag ace-jump-mode)))
+    (lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package smex projectile magit json-mode ivy go-mode flx-ido fish-mode expand-region eglot doom-themes auto-complete ag ace-jump-mode)))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
    (quote
@@ -88,7 +94,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(dired-ignored ((t (:inherit brightgreen))))
- '(font-lock-comment-face ((t (:foreground "color-240"))))
+ '(font-lock-comment-face ((t (:foreground "color-242"))))
  '(js2-external-variable ((t (:foreground "color-33"))))
  '(js2-function-call ((t (:inherit color-229))))
  '(js3-external-variable-face ((t (:foreground "color-51"))))
