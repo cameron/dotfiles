@@ -1,0 +1,40 @@
+#! /bin/bash
+
+which jq
+if [[ "$?" == "1" ]]; then
+  echo "Missing dependency jq; jq is listed on most package managers as jq, e.g.:
+OS X: brew install jq
+Deb/Ubuntu: apt-get install jq
+
+https://stedolan.github.io/jq/download/"
+  exit 1
+fi
+
+src=$1
+
+if [[ -z "$src" ]]; then
+  src=.
+fi
+
+src=$(realpath $src)
+
+if [[ ! -f "$src/elm.json" ]]; then
+  echo "Error: no elm project specified.
+Run $(basename $0) from the root dir an elm project, or pass a path to one as the first argument."
+  exit 1
+fi
+
+version=$(cat $src/elm.json | jq --raw-output .version)
+name=$(cat $src/elm.json | jq --raw-output .name)
+
+dest=~/.elm/0.19.1/packages/$name/$version
+if [[ -d "$dest" ]]; then
+  echo -e "Already exists:\t\t$dest
+Will move to:\t\t$dest.dist"
+  mv $dest $dest.dist
+fi
+
+echo "Running ln -s $src $dest"
+ln -s $src $dest
+
+echo "Warning: It's up to you to make sure $src is checked out to the proper version tag!"

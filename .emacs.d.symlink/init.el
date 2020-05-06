@@ -1,19 +1,21 @@
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "http://stable.melpa.org/packages/")))
+        ("melpa" . "http://stable.melpa.org/packages/")
+        ))
 
-(package-initialize)
+;(package-initialize)
 ;(package-refresh-contents)
 
 (setq install-these-packages '(ace-jump-mode
+                               auto-compile ; 
                                auto-complete
                                fish-mode
-                               smex
                                flx-ido
                                magit
                                expand-region
                                elm-mode
                                lsp-mode
+                               lsp-ui
                                company
                                go-mode
                                ag
@@ -29,9 +31,20 @@
     (package-install package)))
 
 
+;; no more stale bytecode!
+(setq load-prefer-newer t) ; will use .el instead of .elc if newer
+(package-initialize)
+(require 'auto-compile)
+(auto-compile-on-load-mode)
+(auto-compile-on-save-mode)
+
 (add-hook 'after-init-hook 'global-company-mode)
 
 (require 'lsp-mode)
+(lsp-ui-mode)
+;(setq lsp-ui-doc-enable nil) ; seems to break long elm files
+(global-eldoc-mode -1)
+(eldoc-mode -1)
 (add-hook 'elm-mode-hook #'lsp)
 
 
@@ -40,19 +53,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(backup-directory-alist (quote (("." . "~/.emacs.d/autosaves"))))
+ '(backup-directory-alist '(("." . "~/.emacs.d/autosaves")))
  '(css-indent-offset 2)
- '(eglot-put-doc-in-help-buffer (lambda (var) nil))
+ '(debug-on-error t)
+ '(desktop-path '("."))
  '(electric-pair-mode t)
- '(elm-indent-after-keywords
-   (quote
-    (("of" 2)
-     ("in" 2 0)
-     ("{" 2)
-     "if" "then" "else" "let")))
+ '(elm-indent-after-keywords '(("of" 2) ("in" 2 0) ("{" 2) "if" "then" "else" "let"))
  '(elm-indent-offset 2)
  '(elm-tags-on-save t)
- '(frame-background-mode (quote dark))
+ '(frame-background-mode 'dark)
+ '(gc-cons-threshold 500000000)
  '(js-indent-level 2)
  '(js2-basic-offset 2)
  '(js2-strict-inconsistent-return-warning nil)
@@ -60,23 +70,24 @@
  '(js2-strict-trailing-comma-warning nil)
  '(js3-boring-indentation t)
  '(js3-consistent-level-indent-inner-bracket t)
+ '(lsp-diagnostic-package :none)
+ '(lsp-enable-on-type-formatting nil)
+ '(lsp-enable-symbol-highlighting nil)
+ '(lsp-log-io t)
  '(package-selected-packages
-   (quote
-    (lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package smex projectile magit json-mode ivy go-mode flx-ido fish-mode expand-region eglot doom-themes auto-complete ag ace-jump-mode)))
+   '(lsp-mssql flycheck-elm flycheck lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package projectile magit json-mode ivy go-mode flx-ido fish-mode expand-region doom-themes auto-complete ag ace-jump-mode))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
-   (quote
-    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "build" "node_modules" "dist" "FB SketchKit.sketchplugin/Contents/Resources/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreExporter/webview/" "FB SketchKit.sketchplugin/Contents/Sketch/Data/webview/selectQuery/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreNative/webview/")))
- '(projectile-globally-ignored-file-suffixes (quote ("*.min.js" ".png" ".gif" ".json")))
- '(projectile-globally-ignored-files (quote ("*.log*" "*#*" "TAGS")))
+   '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "build" "node_modules" "dist" "FB SketchKit.sketchplugin/Contents/Resources/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreExporter/webview/" "FB SketchKit.sketchplugin/Contents/Sketch/Data/webview/selectQuery/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreNative/webview/"))
+ '(projectile-globally-ignored-file-suffixes '("*.min.js" ".png" ".gif" ".json"))
+ '(projectile-globally-ignored-files '("*.log*" "*#*" "TAGS"))
  '(projectile-mode-line
-   (quote
-    (:eval
+   '(:eval
      (if
          (file-remote-p default-directory)
          " Projectile"
        (format " Projectile[%s]"
-               (projectile-project-name))))))
+               (projectile-project-name)))))
  '(python-indent-offset 2)
  '(sh-basic-offset 2)
  '(sh-indentation 2)
@@ -95,6 +106,7 @@
  ;; If there is more than one, they won't work right.
  '(dired-ignored ((t (:inherit brightgreen))))
  '(font-lock-comment-face ((t (:foreground "color-242"))))
+ '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "color-243"))))
  '(js2-external-variable ((t (:foreground "color-33"))))
  '(js2-function-call ((t (:inherit color-229))))
  '(js3-external-variable-face ((t (:foreground "color-51"))))
@@ -234,14 +246,6 @@
 (global-unset-key (kbd "C-;"))
 (global-set-key (kbd "C-;") 'ace-jump-mode)
 
-; eglot
-(add-hook 'elm-mode-hook 'eglot-ensure)
-(require 'eglot)
-(add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server" "--stdio")))
-
-; disable flymake when eglot is active
-(add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
-
 ; 
 (use-package doom-themes
   :config
@@ -264,9 +268,9 @@
 
 ;
 ;; smex -- ido-like M-x replacement
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; vanilla M-x
+;(global-set-key (kbd "M-x") 'smex)
+;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; vanilla M-x
 
 (require 'expand-region)
 
@@ -277,3 +281,6 @@
 ;; in case one wants to map one key to another...
 ;; (global-set-key (kbd "C-h") (kbd "<backspace>"))
 
+(desktop-save-mode 1)
+
+(setq read-process-output-max (* 1024 5120))

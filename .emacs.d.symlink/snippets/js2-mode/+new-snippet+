@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: els-log
+# key: els/log
+# --
+const fs = require('fs');
+fs.appendFileSync('/tmp/els.log', $0 + '\n');

@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("learning.md"
+((".emacs.d"
+ (filename . "~/.emacs.d/")
+ (front-context-string . ".lsp-session-v1\n")
+ (rear-context-string . "23 May  1 18:39 ")
+ (position . 1496))
+("learning.md"
  (filename . "~/src/dotfiles/.emacs.d.symlink/learning.md")
  (front-context-string . "- expand region ")
  (rear-context-string)
@@ -13,17 +18,17 @@
  (rear-context-string)
  (position . 1))
 ("config.fish"
- (filename . "~/.config/fish/config.fish")
- (front-context-string . "set PATH \"$HOME/")
- (rear-context-string)
- (position . 1))
+ (filename . "~/src/dotfiles/.config/fish.symlink/config.fish")
+ (front-context-string . "  if test -f .tm")
+ (rear-context-string . "ion; and return\n")
+ (position . 564))
 ("bin"
  (filename . "~/src/dotfiles/bin/")
  (front-context-string . ".digital-ocean-r")
  (rear-context-string . "59 Mar 22 00:14 ")
  (position . 296))
 ("tmux.conf.symlink"
- (filename . "~/src/dotfiles/tmux/tmux.conf.symlink")
+ (filename . "~/src/dotfiles/.tmux.conf.symlink")
  (front-context-string . "\n# mouse scrolli")
  (rear-context-string)
  (position . 1))
