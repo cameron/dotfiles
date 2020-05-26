@@ -14,7 +14,7 @@ _Keeping tabs on new keys + workflow stuff_
     - then move the cursor to the next line in the stack (the one you do want to step further into) and press d again
   - more at https://www.gnu.org/software/emacs/manual/html_node/elisp/Debugger-Commands.html
 - indent-rigidly
-  - C-i
+  - C-i (broke)
 - ace-jump-word
   - M-j
 - expand region
@@ -25,11 +25,14 @@ _Keeping tabs on new keys + workflow stuff_
 - magit
   - magit-commit-create
     - write a helper to automatically state/write commit message?
-- lsp works!!nn
-  - https://github.com/emacs-lsp/lsp-ui (peek mode looks rad)  
+- lsp works!!
+  - https://github.com/emacs-lsp/lsp-ui (peek mode looks rad)
   - lsp-ui-find-workspace-symbol !!
   - on deck:
     - treemacs: https://github.com/emacs-lsp/lsp-treemacs
+
+  - issues
+    - autocomplete does not include packages
 - more: https://github.com/emacs-tw/awesome-emacs
 
 # Tmux

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: log
+# key: ,,log
+# --
+let
+  _ = Debug.log "" ""
+in

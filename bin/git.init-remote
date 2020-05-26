@@ -9,7 +9,9 @@ if [[ -z "$host" ]]; then
 fi
 
 if [[ -z "$remote_name" ]]; then
-  read -p "What shall we call the remote in .git/config? [Default: $1]: " remote_name
+	echo "The current remotes in .git/config are:"
+	git remote -v
+  read -p "What shall we call this remote? [Default: $1]: "
   if [[ -z "$remote_name" ]]; then
     remote_name=$host
   fi

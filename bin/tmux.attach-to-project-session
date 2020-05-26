@@ -1,24 +1,27 @@
 #! /bin/bash
 
-sessionName=$1
+# support for multiple sessions / monitors
 
-# support multiple monitors
-sessions=`tmux list-sessions | grep $sessionName | grep -v attached`
+sessions=$(tmux list-sessions | grep $TMUX_PROJECT | grep -v attached)
+
 if [ $? -eq 1 ]; then
 
-    secondarySessionName=$sessionName-`date +%s`
-
+    sessionName=$TMUX_PROJECT-`date +%s`
     tmux \
-        new-session -t $sessionName -s $secondarySessionName \;\
-        attach -d -t $secondarySessionName \;\
+        new-session -t $TMUX_PROJECT -s $sessionName \;\
+        attach -d -t $sessionName \;\
         select-window -t 2
     exit 0
 fi
 
-sessionName=`echo $sessions | head -1 | grep -o "^[^:]*" | head -1`
+tmux ls
+tmux attach -d -t $TMUX_PROJECT
 
-tmux attach -d -t $sessionName
+if [[ -f ~/.tmux.cleanup ]]; then
+	~/.tmux.cleanup
+fi
 
+# TODO this runs only when the first session exits; should run when only remaining session quites
 if [[ -f .tmux.cleanup ]]; then
   ./.tmux.cleanup
 fi

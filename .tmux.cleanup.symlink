@@ -1,0 +1,6 @@
+#! /bin/bash
+
+# i often kill sessions w/o giving the contained processes polite shutdown commands...
+if [[ -f .emacs.desktop.lock ]]; then
+   rm .emacs.desktop.lock
+fi

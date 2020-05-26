@@ -7,9 +7,11 @@ Icon
 .Spotlight-V100
 .Trashes
 
+
 # temp files
 *~
 \#*
+
 
 # personal
 .#*
@@ -18,3 +20,4 @@ Icon
 .projectile
 .notes.md
 .ignore
+.emacs.desktop*
