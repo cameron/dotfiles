@@ -1,4 +1,5 @@
-set PATH "$HOME/bin" "$HOME/src/dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" $PATH
+
+set PATH "$HOME/bin" "$HOME/src/dotfiles/bin" "$HOME/Library/Python/3.7/bin/" $PATH
 
 set -U EDITOR emacs
 set -x EDITOR emacs # git didn't pick up the -U invocation
@@ -51,3 +52,50 @@ set -U fish_pager_color_prefix        'white' '--bold' '--underline'
 set -U fish_pager_color_progress      'white' '--background=cyan'
 
 alias emacs "emacs -nw"
+
+function fish_prompt --description 'Write out the prompt'
+    # Just calculate these once, to save a few cycles when displaying the prompt
+    if not set -q __fish_prompt_hostname
+    set -g __fish_prompt_hostname (set_color -d white)(hostname|cut -d . -f 1)(set_color normal)
+    end
+
+    if not set -q __fish_prompt_normal
+    set -g __fish_prompt_normal (set_color normal)
+    end
+
+    if not set -q __git_cb
+    set __git_cb " "(set_color brown)(git branch ^/dev/null | grep \* | sed 's/* //')(set_color normal)""
+    end
+
+    switch $USER
+
+				case root
+
+						if not set -q __fish_prompt_cwd
+								if set -q fish_color_cwd_root
+										set -g __fish_prompt_cwd (set_color $fish_color_cwd_root)
+								else
+										set -g __fish_prompt_cwd (set_color $fish_color_cwd)
+								end
+						end
+
+						printf '%s@%s:%s%s%s%s# ' $USER $__fish_prompt_hostname "$__fish_prompt_cwd" (prompt_pwd) "$__fish_prompt_normal" $__git_cb
+
+				case '*'
+
+						if not set -q __fish_prompt_cwd
+								set -g __fish_prompt_cwd (set_color $fish_color_cwd)
+						end
+
+						printf '%s@%s %s%s%s%s > ' (set_color -d white)$USER(set_color normal) $__fish_prompt_hostname "$__fish_prompt_cwd" (prompt_pwd) "$__fish_prompt_normal" $__git_cb
+
+    end
+end
+
+# WORK STUFF (migrate to subdirectory config?)
+
+set -x PUSHD_USER cameron
+
+
+
+source (rbenv init -|psub)

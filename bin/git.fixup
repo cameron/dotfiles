@@ -6,5 +6,5 @@
 set -e
 
 commit=$(git log -n 1 --format=format:"%B")
-git reset HEAD~1 --soft
+git reset HEAD~2 --soft
 git commit -m "$commit"

@@ -14,7 +14,7 @@
                                magit
                                expand-region
                                elm-mode
-                               lsp-mode
+;                               lsp-mode
                                lsp-ui
                                company
                                go-mode
@@ -54,11 +54,11 @@
 (setq indent-tabs-mode nil)
 (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/autosaves" t)))
 
-(setq lsp-ui-doc-enable nil) ; seems to break long elm files; is annoying anyway
-(global-eldoc-mode -1)
-(eldoc-mode -1)
-(add-hook 'elm-mode-hook #'lsp)
-(setq read-process-output-max (* 1024 5120)) ; for lsp performance
+;; (setq lsp-ui-doc-enable nil) ; seems to break long elm files; is annoying anyway
+;; (global-eldoc-mode -1)
+;; (eldoc-mode -1)
+;; (add-hook 'elm-mode-hook #'lsp)
+;; (setq read-process-output-max (* 1024 5120)) ; for lsp performance
 
 ;; (defun my-elm ()
 ;;   (define-key lsp-mode-map (kbd "C-q") 'lsp-expand-selection)
@@ -69,9 +69,10 @@
 (use-package elm-mode
 	:mode "\\.elm\\'")
 
-(use-package lsp-mode
-  :mode "\\.elm\\'"
-  :bind ("C-q" . lsp-extend-selection))
+;; (use-package lsp-mode
+;;   :mode "\\.elm\\'"
+;;   :bind ("C-q" . lsp-extend-selection)
+;; 	:bind ("C-M-d" . lsp-find-definition))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -102,7 +103,7 @@
  '(lsp-enable-symbol-highlighting nil)
  '(lsp-log-io nil)
  '(package-selected-packages
-	 '(lsp-mssql flycheck-elm flycheck lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package projectile magit json-mode ivy go-mode flx-ido fish-mode expand-region doom-themes auto-complete ag ace-jump-mode))
+	 '(rjsx-mode lsp-mssql flycheck-elm flycheck lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package projectile magit json-mode ivy go-mode flx-ido fish-mode expand-region doom-themes auto-complete ag ace-jump-mode))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
 	 '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "build" "node_modules" "dist" "FB SketchKit.sketchplugin/Contents/Resources/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreExporter/webview/" "FB SketchKit.sketchplugin/Contents/Sketch/Data/webview/selectQuery/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreNative/webview/"))
@@ -277,10 +278,10 @@
 
 
 ;; M-x customize-face vline to change the colorp
-(use-package vline
-	:load-path "~/.emacs.d/thirdparty")
-;(vline-mode)
-;(vline-global-mode)
+;; (use-package vline
+;; 	:load-path "~/.emacs.d/thirdparty")
+;; ;(vline-mode)
+;; ;(vline-global-mode)
 
 
 (use-package doom-themes
@@ -324,3 +325,6 @@
   (auto-fill-mode)
   )
 (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
+(put 'downcase-region 'disabled nil)
+
+(setq ruby-insert-encoding-magic-comment nil)

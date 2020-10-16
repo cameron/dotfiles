@@ -16,10 +16,12 @@
 
 [user]
 	email = cameron.boehmer@gmail.com
+	name = Cameron Boehmer
 [push]
 	default = current
 [core]
 	excludesfile = ~/.gitignore
+	editor = /usr/local/bin/emacs
 [github]
 	user = cameron
 [branch]
