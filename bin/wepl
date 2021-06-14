@@ -1,0 +1,23 @@
+#! /usr/bin/env bash
+
+if [[ ! -z $1 ]]; then
+	if [[ $1 == "-e" ]]; then
+ 		entr.repl .wepl
+		exit 0
+	fi
+	interpreter=$1
+elif [[ ! -z $WEPL_INTERPRETER ]]; then
+	interpreter=$WEPL_INTERPRETER
+else
+	interpreter='bash'
+fi
+
+
+if [[ ! -f .wepl ]]; then
+	echo "#! /usr/bin/env $interpreter
+
+	" > .wepl
+	chmod +x .wepl
+fi
+
+$EDITOR .wepl

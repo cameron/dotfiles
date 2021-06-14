@@ -1,0 +1,4 @@
+#! /bin/bash
+
+dir=$(dirname $(realpath $1))
+mv $1 $dir/$2

@@ -1,0 +1,60 @@
+#! /usr/bin/env bash
+
+
+help () {
+	cat <<-END
+git.borrow <ref> <path>
+
+Checks out <path> from <ref>; later, git.borrow --return restores <path>.
+END
+}
+
+# GLOBALS
+
+
+file_borrowed=.git-borrowed
+
+
+## OPTS + ARGS
+
+params=""
+while (( "$#" )); do
+  case "$1" in
+		-r|--return)
+			for file in $(cat $file_borrowed); do
+				git restore --staged $file
+				git restore $file
+			done
+			exit 0
+			;;
+    *) # preserve positional arguments
+      PARAMS="$PARAMS $1"
+      shift
+	esac
+done
+
+eval set -- "$PARAMS" # set positional arguments in their proper place
+
+ref=$1
+
+if [[ -z $ref ]]; then
+	echo "Missing ref:"
+	help
+	exit 1
+fi
+
+path=$2
+
+if [[ -z $path ]]; then
+	echo "Missing path:"
+	help
+	exit 1
+fi
+
+
+## MAIN
+
+
+git checkout $ref -- $path
+mkdir $dir 2> /dev/null
+echo "$path" >> $file_borrowed

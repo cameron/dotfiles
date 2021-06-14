@@ -1,7 +1,9 @@
-set PATH "$HOME/bin" "$HOME/src/dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" $PATH
+set PATH "$HOME/bin" "$HOME/src/dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" "/usr/local/bin" "$HOME/.rbenv/shims/" "/usr/local/go/bin" "./.bin/" "$HOME/.cargo/bin" $PATH
+set -x GOPATH "$HOME/src/ftx/go/ftx/" $GOPATH
 
 set -U EDITOR emacs
 set -x EDITOR emacs # git didn't pick up the -U invocation
+set -x PUSHD_USER cameron
 
 set fish_greeting
 
@@ -11,16 +13,9 @@ exiting tmux session according to the name of the directory. If such a
 session does not exist, run the .tmux file to create one and attach to it.
 "
   status --is-command-substitution; and return
-  if test -f .tmux
-     and not set -q TMUX_PROJECT
-     # TODO wth is going on w/TMUX_PROJECT value getting exported to previously instantiated projects??
-     set -x TMUX_PROJECT (pwd | sed 's/\/Users\/cameron\/src\///' | tr -d './-')
-     tmux has-session -t $TMUX_PROJECT 2> /dev/null
-     if test $status -eq 1
-       ./.tmux
-     end
-     tmux.attach-to-project-session
-   end
+  if test -f .tmux.workspace-init
+			tmux.workspace-join
+  end
 end
 
 set -U fish_color_autosuggestion      brwhite
@@ -51,3 +46,32 @@ set -U fish_pager_color_prefix        'white' '--bold' '--underline'
 set -U fish_pager_color_progress      'white' '--background=cyan'
 
 alias emacs "emacs -nw"
+
+set -x LDFLAGS "-L/usr/local/opt/openssl@1.1/lib -L/usr/local/lib -L/usr/local/opt/expat/lib"
+set -x CFLAGS "-I/usr/local/opt/openssl@1.1/include/ -I/usr/local/include -I/usr/local/opt/expat/include"
+set -x CPPFLAGS "-I/usr/local/opt/openssl@1.1/include/ -I/usr/local/include -I/usr/local/opt/expat/include"
+
+set fish_prompt_pwd_dir_length 3
+
+function fish_prompt
+		set repo_path (git rev-parse --show-toplevel 2> /dev/null)
+		set prompt_path (prompt_pwd)
+		if ! test -z "$repo_path"
+				set repo_name (basename $repo_path)
+				set prompt_path (pwd | sed "s/.*$repo_name/$repo_name/")
+				set branch (git branch --show-current)
+		end
+
+		set_color brwhite
+		echo -n $prompt_path
+		if set -q branch
+				set_color green
+				echo -n " $branch"
+				set_color white
+		end
+		echo -n ' > '
+
+		if set -q TMUX_GIT; and set -q branch
+				commandline -i 'git ' # prefix the command line with 'git' (trying it out as a feature of a dedicated git shell in workspaces)
+		end
+end

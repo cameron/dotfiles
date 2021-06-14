@@ -1,10 +1,10 @@
 #! /bin/bash
 
 # squash the most recent commit into the penultimate,
-# taking the most recent's commit message
+# taking the penultimate's commit message
 
 set -e
 
-commit=$(git log -n 1 --format=format:"%B")
-git reset HEAD~1 --soft
+commit=$(git log -n 1 --skip 1 --format=format:"%B")
+git reset HEAD~2 --soft
 git commit -m "$commit"

@@ -7,7 +7,7 @@
         ))
 
 (setq install-these-packages '(ace-jump-mode
-                               auto-compile ;
+                               auto-compile
                                auto-complete
                                fish-mode
                                flx-ido
@@ -90,22 +90,22 @@
  '(fill-column 90)
  '(frame-background-mode 'dark)
  '(gc-cons-threshold 50000000)
- '(js-indent-level 2)
+ '(js-indent-level 2 t)
  '(js2-basic-offset 2)
  '(js2-strict-inconsistent-return-warning nil)
  '(js2-strict-missing-semi-warning nil)
  '(js2-strict-trailing-comma-warning nil)
  '(js3-boring-indentation t)
  '(js3-consistent-level-indent-inner-bracket t)
- '(lsp-diagnostic-package :none)
+ '(lsp-diagnostics-provider :none)
  '(lsp-enable-on-type-formatting nil)
  '(lsp-enable-symbol-highlighting nil)
  '(lsp-log-io nil)
  '(package-selected-packages
-	 '(lsp-mssql flycheck-elm flycheck lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package projectile magit json-mode ivy go-mode flx-ido fish-mode expand-region doom-themes auto-complete ag ace-jump-mode))
+	 '(lsp-mssql flycheck-elm flycheck lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package projectile magit json-mode go-mode flx-ido fish-mode expand-region doom-themes auto-complete ag ace-jump-mode))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
-	 '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "build" "node_modules" "dist" "FB SketchKit.sketchplugin/Contents/Resources/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreExporter/webview/" "FB SketchKit.sketchplugin/Contents/Sketch/Data/webview/selectQuery/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreNative/webview/"))
+	 '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "build" "node_modules" "dist" "FB SketchKit.sketchplugin/Contents/Resources/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreExporter/webview/" "FB SketchKit.sketchplugin/Contents/Sketch/Data/webview/selectQuery/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreNative/webview/" "public/assets/*"))
  '(projectile-globally-ignored-file-suffixes '("*.min.js" ".png" ".gif" ".json"))
  '(projectile-globally-ignored-files '("*.log*" "*#*" "TAGS"))
  '(projectile-mode-line
@@ -125,8 +125,8 @@
  '(split-width-threshold nil)
  '(tab-width 2)
  '(tramp-default-method "ssh")
- '(tramp-mode nil)
- '(vline-idle-time 0.04))
+ '(tramp-mode nil))
+; '(vline-idle-time 0.04))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -134,7 +134,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(dired-ignored ((t (:inherit brightgreen))))
- '(font-lock-comment-face ((t (:foreground "color-242"))))
+ '(font-lock-comment-face ((t (:foreground "color-245"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "color-243"))))
  '(js2-external-variable ((t (:foreground "color-33"))))
  '(js2-function-call ((t (:inherit color-229))))
@@ -142,8 +142,8 @@
  '(js3-function-param-face ((t (:foreground "color-34"))))
  '(linum ((t (:foreground "brightgreen" :weight bold))))
  '(region ((t (:background "color-25"))))
- '(smerge-refined-added ((t (:inherit smerge-refined-change :background "color-84"))))
- '(vline ((t (:background "color-236")))))
+ '(smerge-refined-added ((t (:inherit smerge-refined-change :background "color-84")))))
+; '(vline ((t (:background "color-236")))))
 
 (require 'ag)
 
@@ -277,8 +277,8 @@
 
 
 ;; M-x customize-face vline to change the colorp
-(use-package vline
-	:load-path "~/.emacs.d/thirdparty")
+;(use-package vline
+;	:load-path "~/.emacs.d/thirdparty")
 ;(vline-mode)
 ;(vline-global-mode)
 
@@ -324,3 +324,4 @@
   (auto-fill-mode)
   )
 (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
+(setq ruby-insert-encoding-magic-comment nil)

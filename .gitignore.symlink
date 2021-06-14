@@ -15,9 +15,32 @@ Icon
 
 # personal
 .#*
-.tmux
+.tmux.workspace-init
 .tmux.cleanup
 .projectile
-.notes.md
+cam.md
 .ignore
 .emacs.desktop*
+.test.rb
+.git.freshen
+.wepl*
+
+.git-borrowed
+
+
+
+# pushd
+console.init.rb
+*.draft
+script/websocket*
+db/migrate/*later
+test/models/test_testy.rb
+.db-migrations.hash
+.which-tests/*
+.srcwatch/*
+*Breakpoints_v2.xcbkptlist
+.admin-init
+.scratch
+.wepl
+.gem-hash
+.bin

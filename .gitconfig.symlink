@@ -22,5 +22,14 @@
 	excludesfile = ~/.gitignore
 [github]
 	user = cameron
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[pull]
+	rebase = false
 [branch]
-	autosetupmerge = true
+	sort = -committerdate
+[init]
+	defaultBranch = main

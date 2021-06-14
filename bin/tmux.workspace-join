@@ -1,0 +1,50 @@
+#! /bin/bash
+
+
+if [[ ! -z "$TMUX_PROJECT" ]]; then
+	exit 0 # inside an existing tmux workspace session
+fi
+
+
+function project_sessions () {
+	tmux list-sessions 2> /dev/null | grep $TMUX_PROJECT
+}
+
+function unattached_sessions () {
+	project_sessions | grep -v attached
+}
+
+
+TMUX_PROJECT=$(pwd | sed 's/.*\///')
+export $TMUX_PROJECT
+
+if [[ -z $(project_sessions) ]]; then
+	TMUX_PROJECT=$TMUX_PROJECT ./.tmux.workspace-init
+elif [[ -z $(unattached_sessions) ]]; then
+	num_projects=$(echo $project_sessions | wc -l | xargs)
+  session_name=$TMUX_PROJECT-$(( $num_sessions + 1))
+	tmux new-session -d -t $TMUX_PROJECT -s $session_name
+fi
+
+if [[ -z $(unattached_sessions) ]]; then
+	echo "[tmux.workspace] Something went wrong; no sessions to attach to."
+	exit 1
+fi
+
+session=$(unattached_sessions | head -1 | cut -d':' -f 1)
+tmux set-environment -t $session TMUX_PROJECT $TMUX_PROJECT
+tmux attach -t $session \;\
+  set status-left "#[fg=colour102]#(echo \"[ $TMUX_PROJECT ]\")" # omg this took so long figure out
+
+
+# global cleanup
+if [[ -f ~/.tmux.cleanup ]]; then
+	~/.tmux.cleanup
+fi
+
+if [[ -f .tmux.cleanup ]]; then
+	sessions=$(tmux ls 2> /dev/null | grep $TMUX_PROJECT | wc -l | xargs)
+	if [[ $sessions == "0" ]]; then
+		./.tmux.cleanup
+	fi
+fi

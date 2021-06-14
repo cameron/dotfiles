@@ -1,0 +1,18 @@
+.anrdoid/*
+.docker
+.rbenv
+.Trash
+.git/*
+*.DS_Store
+Downloads/*
+Applications/*
+Library/*
+Pictures/Photos Library.photoslibrary/*
+*node_modules/*
+*/Pods/*
+*src/an-art-web/db/volumes/*
+*src/pushd/pushd-web/tmp/*
+*.cocoapods/*
+*.bundle/*
+*.npm/*
+*.kube/*

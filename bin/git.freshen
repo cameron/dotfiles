@@ -1,0 +1,71 @@
+#! /usr/bin/env bash
+
+function help () {
+	name=$(basename $0)
+	echo "
+Shorthand for the common workflow of updating your feature branch from origin/master, or similar.
+
+You can specify a branch other than master (or your default as specified in .git.freshen) by passing a branch name, e.g.:
+
+> $name main
+
+This preference will be stored in and later fetched from .git.freshen, where you can also specify a default other than master. E.g.:
+
+freshen-default <branch_other_than_master>
+<freshen_this_branch> <from_this_branch>
+
+"
+}
+
+
+PARAMS=""
+while (( "$#" )); do
+  case "$1" in
+		-h|--help)
+			help
+			exit
+			;;
+    -*|--*=)
+      echo "Oops! Unsupported flag $1" >&2
+			help
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      PARAMS="$PARAMS $1"
+      shift
+      ;;
+  esac
+done
+
+eval set -- "$PARAMS" # set positional arguments in their proper place
+
+touch .git.freshen
+
+if [[ ! -z $1 ]]; then
+	cat .git.freshen | grep -v "^$(git branch --show-current) " > .git.freshen
+	echo "$(git branch --show-current) $1" >> .git.freshen
+fi
+
+function branch_for () {
+	cat .git.freshen 2>/dev/null | grep $1 | awk '{print $2}'
+}
+
+function freshen_from () {
+	from=$(branch_for $(git branch --show-current))
+	if [[ -z "$from" ]]; then
+		from=$(branch_for 'freshen-default')
+	fi
+	echo $from
+}
+
+set -e
+
+current=$(git branch --show-current)
+from=$(freshen_from)
+git rev-parse --abbrev-ref $to@{upstream}
+git pull
+git push -u
+git checkout $from
+git pull
+git checkout $current
+git pull . $from

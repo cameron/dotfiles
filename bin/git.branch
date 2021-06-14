@@ -1,0 +1,15 @@
+#! /bin/bash
+
+branch_stack=~/.git.branch
+
+if [[ "$1" == "push" ]]; then
+	echo $(git branch --show-current) >> $branch_stack
+	git commit --no-verify -am 'wip'
+	git checkout $2
+elif [[ "$1" == "pop" ]]; then
+	popped_branch=$(tail -1 $branch_stack)
+	git checkout $popped_branch
+	sed -i '$d' $branch_stack
+fi
+
+git pull

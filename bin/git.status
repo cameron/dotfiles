@@ -1,0 +1,29 @@
+#! /usr/bin/env fish
+
+set_color green
+echo -n ' '
+git branch --show-current
+set_color white
+echo
+
+set_color blue
+echo ' ### diff ###'
+set_color white
+echo
+git diff
+
+echo
+echo
+set_color blue
+echo ' ### status ###'
+set_color white
+echo
+git status --short
+
+echo
+echo
+set_color blue
+echo ' ### diff main... ###'
+set_color white
+echo
+git diff --compact-summary main...

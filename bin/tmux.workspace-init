@@ -1,5 +1,5 @@
-#! /usr/bin/env fish
+#! /bin/bash
 
-cp ~/src/dotfiles/bin/.tmux.template .tmux
+cp ~/src/dotfiles/bin/.tmux.workspace-init.template .tmux.workspace-init
 chmod +x .tmux
 cd .

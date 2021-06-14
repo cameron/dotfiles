@@ -1,0 +1,4 @@
+#! /bin/bash
+
+file=$(realpath $1)
+echo $file | entr -r -c $file

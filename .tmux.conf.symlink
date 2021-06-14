@@ -44,7 +44,7 @@ bind R source-file ~/.tmux.conf \; display-message "Config reloaded..."
 bind r respawn-pane -k
 
 # rename window
-bind N command-prompt -p current,new "rename-window -t %1 %2"
+bind N command-prompt -p 'new name' "rename-window %1"
 
 # status bar
 set-option -g display-time 3000 # for :command output
@@ -53,7 +53,7 @@ set-option -g status on
 set-option -g status-interval 2
 set -g status-fg colour231
 set -g status-bg colour235
-set -g status-left-length 100
+set status-left-length 100
 set -g status-left "#[fg=colour102]#(echo \"[ $TMUX_PROJECT ]\")"
 set -g status-justify "centre"
 set -g status-right-length 150
@@ -82,5 +82,3 @@ setw -g aggressive-resize on
 
 # automatically renumber windows on deletion
 set -g renumber-windows on
-
-set-option -ga update-environment ' TMUX_PROJECT'

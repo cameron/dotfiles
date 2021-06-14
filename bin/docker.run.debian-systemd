@@ -1,0 +1,18 @@
+#! /bin/bash
+
+name=debian-systemd
+img=$(docker images | grep $name)
+
+if [[ -z "$img" ]]; then
+  echo "$name image missing; building..."
+  pushd ~/src/systemd-in-docker/
+  docker build -t $name .
+  popd
+fi
+
+id=$(docker ps | grep $name | awk '{print $1}')
+
+if [[ -z "$id" ]]; then
+  docker run -d --privileged -p 2222:22 --rm --name $name $name
+  sleep 1
+fi
