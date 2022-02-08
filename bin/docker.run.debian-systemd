@@ -13,6 +13,6 @@ fi
 id=$(docker ps | grep $name | awk '{print $1}')
 
 if [[ -z "$id" ]]; then
-  docker run -d --privileged -p 2222:22 --rm --name $name $name
+  docker run -d --privileged -p 2222:22 --rm --name $name -h $name $name
   sleep 1
 fi

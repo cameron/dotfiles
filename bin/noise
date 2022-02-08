@@ -1,0 +1,9 @@
+#! /bin/bash
+
+which sox
+if [[ $? == "1" ]]; then
+	brew install sox
+fi
+
+
+play -n synth brownnoise

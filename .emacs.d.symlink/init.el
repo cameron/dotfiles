@@ -79,6 +79,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(backup-directory-alist '(("." . "~/.emacs.d/autosaves")))
+ '(create-lockfiles nil)
  '(css-indent-offset 2)
  '(debug-on-error nil)
  '(desktop-path '("."))
@@ -102,7 +103,7 @@
  '(lsp-enable-symbol-highlighting nil)
  '(lsp-log-io nil)
  '(package-selected-packages
-	 '(lsp-mssql flycheck-elm flycheck lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package projectile magit json-mode go-mode flx-ido fish-mode expand-region doom-themes auto-complete ag ace-jump-mode))
+	 '(## php-mode lsp-mssql flycheck-elm flycheck lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package projectile magit json-mode go-mode flx-ido fish-mode expand-region doom-themes auto-complete ag ace-jump-mode))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
 	 '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "build" "node_modules" "dist" "FB SketchKit.sketchplugin/Contents/Resources/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreExporter/webview/" "FB SketchKit.sketchplugin/Contents/Sketch/Data/webview/selectQuery/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreNative/webview/" "public/assets/*"))

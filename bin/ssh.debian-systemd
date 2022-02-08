@@ -1,0 +1,4 @@
+#! /bin/bash
+
+docker.run.debian-systemd
+ssh debian-systemd

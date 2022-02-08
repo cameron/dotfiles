@@ -1,5 +1,12 @@
 set PATH "$HOME/bin" "$HOME/src/dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" "/usr/local/bin" "$HOME/.rbenv/shims/" "/usr/local/go/bin" "./.bin/" "$HOME/.cargo/bin" $PATH
+set PATH "$HOME/Library/Android/sdk/platform-tools/" $PATH
+set PATH "$HOME/src/irl/infra/bin" $PATH
 set -x GOPATH "$HOME/src/ftx/go/ftx/" $GOPATH
+
+set -x IRL_REPO_PATH "$HOME/src/irl/irl/"
+set -x IRL_PYTHON_REPO_PATH "$HOME/src/irl/python/"
+set -x IRL_IOS_REPO_PATH "$HOME/src/irl/ios/"
+set -x IRL_MYSQL_BINLOG_CONSUMER_REPO_PATH "$HOME/src/irl/mysql-binlog-consumer"
 
 set -U EDITOR emacs
 set -x EDITOR emacs # git didn't pick up the -U invocation
@@ -13,7 +20,7 @@ exiting tmux session according to the name of the directory. If such a
 session does not exist, run the .tmux file to create one and attach to it.
 "
   status --is-command-substitution; and return
-  if test -f .tmux.workspace-init
+  if test -f ./.tmux.workspace-init
 			tmux.workspace-join
   end
 end

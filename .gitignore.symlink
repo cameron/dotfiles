@@ -15,8 +15,8 @@ Icon
 
 # personal
 .#*
-.tmux.workspace-init
-.tmux.cleanup
+.tmux.workspace.init
+.tmux.workspace.cleanup
 .projectile
 cam.md
 .ignore

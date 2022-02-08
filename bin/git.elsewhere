@@ -1,0 +1,5 @@
+#! /bin/bash
+
+git stash save
+git checkout $1
+git stash pop

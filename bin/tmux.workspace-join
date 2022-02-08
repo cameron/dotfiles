@@ -1,6 +1,5 @@
 #! /bin/bash
 
-
 if [[ ! -z "$TMUX_PROJECT" ]]; then
 	exit 0 # inside an existing tmux workspace session
 fi
@@ -16,7 +15,6 @@ function unattached_sessions () {
 
 
 TMUX_PROJECT=$(pwd | sed 's/.*\///')
-export $TMUX_PROJECT
 
 if [[ -z $(project_sessions) ]]; then
 	TMUX_PROJECT=$TMUX_PROJECT ./.tmux.workspace-init
@@ -37,14 +35,8 @@ tmux attach -t $session \;\
   set status-left "#[fg=colour102]#(echo \"[ $TMUX_PROJECT ]\")" # omg this took so long figure out
 
 
-# global cleanup
-if [[ -f ~/.tmux.cleanup ]]; then
-	~/.tmux.cleanup
-fi
-
-if [[ -f .tmux.cleanup ]]; then
-	sessions=$(tmux ls 2> /dev/null | grep $TMUX_PROJECT | wc -l | xargs)
-	if [[ $sessions == "0" ]]; then
-		./.tmux.cleanup
+if [[ -f ./.tmux.workspace.cleanup ]]; then
+	if [[ -z "$(project_sessions)" ]]; then
+		./.tmux.workspace.cleanup
 	fi
 fi

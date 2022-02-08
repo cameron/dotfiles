@@ -1,0 +1,20 @@
+#! /bin/bash
+
+function help () {
+	echo "Usage: ./$0 <local-port> <host> [<remote-port>]"
+}
+
+if [[ -z "$1" ]] || [[ -z "$2" ]]; then
+	 help
+	 exit 1
+fi
+
+local_port=$1
+host=$2
+
+remote_port=$3
+if [[ -z "$remote_port" ]]; then
+	remote_port=$local_port
+fi
+
+ssh -NR $local_port:localhost:$remote_port $host

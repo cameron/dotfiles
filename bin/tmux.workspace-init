@@ -1,5 +1,5 @@
 #! /bin/bash
 
 cp ~/src/dotfiles/bin/.tmux.workspace-init.template .tmux.workspace-init
-chmod +x .tmux
+chmod +x .tmux.workspace-init
 cd .

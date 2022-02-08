@@ -1,0 +1,6 @@
+#! /bin/bash
+
+tmux \
+  new-session -d -s $TMUX_PROJECT -n emacs 'emacs' \;\
+  new-window -n sh \;\
+  selectw -t emacs

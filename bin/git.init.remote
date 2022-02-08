@@ -9,9 +9,7 @@ if [[ -z "$host" ]]; then
 fi
 
 if [[ -z "$remote_name" ]]; then
-	echo "The current remotes in .git/config are:"
-	git remote -v
-  read -p "What shall we call this remote? [Default: $1]: "
+  read -p "What shall we call the remote in .git/config? [Default: $1]: " remote_name
   if [[ -z "$remote_name" ]]; then
     remote_name=$host
   fi
@@ -19,5 +17,5 @@ fi
 
 dir=$(basename $(pwd))
 
-ssh git@$host "cd /repos; mkdir $dir; cd $dir; git init"
-git remote add $remote_name git@$host:/repos/$dir/.git
+ssh $host "cd /srv && mkdir $dir && cd $dir && git init"
+git remote add $remote_name $host:/srv/$dir/.git
