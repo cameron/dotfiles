@@ -15,7 +15,7 @@ id=$(doctl compute droplet create $name \
       --size s-1vcpu-${ram}gb \
       --image debian-10-x64 \
       --ssh-keys 12252656 \
-      --region sfo2 \
+      --region sfo1 \
       --no-header \
       --format ID)
 
@@ -44,6 +44,3 @@ Host $name
   Hostname $ip
   User root
 " >> ~/.ssh/config
-
-echo "$name ansible_host=$ip ansible_user=root
-">> /etc/ansible/hosts

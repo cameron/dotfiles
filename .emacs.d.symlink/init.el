@@ -227,6 +227,9 @@
 (setq mac-command-modifier 'super)
 (global-unset-key (kbd "M-}"))
 
+(global-unset-key (kbd "C-x g"))
+(global-set-key (kbd "C-x g") 'ag-project)
+
 
 ;;
 ;; map file types to modes

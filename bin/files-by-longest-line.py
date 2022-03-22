@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 import pprint
 import os
 
@@ -18,4 +20,4 @@ for path, dirs, files in os.walk('.'):
 
 
 for longest, f in sorted(files_by_longest_line.items(), key=lambda i: i[0])[-100:]:
-  print longest, f
+  print(longest, f)

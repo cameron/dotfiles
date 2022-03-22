@@ -1,0 +1,7 @@
+#! /bin/bash
+
+echo -en "Python Files:\t"
+find . -type f -not -path "./.*" -and -not -path "*venv*" -and -name "*py" | wc -l
+
+echo -en "Python LOC:\t"
+find . -type f -not -path "./.*" -and -not -path "*venv*" -and -name "*py" | xargs cat | wc -l

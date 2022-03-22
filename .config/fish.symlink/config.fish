@@ -1,7 +1,8 @@
-set PATH "$HOME/bin" "$HOME/src/dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" "/usr/local/bin" "$HOME/.rbenv/shims/" "/usr/local/go/bin" "./.bin/" "$HOME/.cargo/bin" $PATH
-set PATH "$HOME/Library/Android/sdk/platform-tools/" $PATH
-set PATH "$HOME/src/irl/infra/bin" $PATH
+set PYENV_ROOT "$HOEM/.pyenv"
+set PATH "$HOME/bin" "$HOME/src/dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" "/usr/local/bin" "$HOME/.rbenv/shims/" "/usr/local/go/bin" "./.bin/" "$HOME/.cargo/bin" "/opt/homebrew/bin" "$PYENV_ROOT/bin" "$PATH"
+set PATH "$HOME/src/irl/infra/bin" "$PATH"
 set -x GOPATH "$HOME/src/ftx/go/ftx/" $GOPATH
+eval (pyenv init --path)
 
 set -x IRL_REPO_PATH "$HOME/src/irl/irl/"
 set -x IRL_PYTHON_REPO_PATH "$HOME/src/irl/python/"
@@ -53,6 +54,7 @@ set -U fish_pager_color_prefix        'white' '--bold' '--underline'
 set -U fish_pager_color_progress      'white' '--background=cyan'
 
 alias emacs "emacs -nw"
+alias ll "ls -al"
 
 set -x LDFLAGS "-L/usr/local/opt/openssl@1.1/lib -L/usr/local/lib -L/usr/local/opt/expat/lib"
 set -x CFLAGS "-I/usr/local/opt/openssl@1.1/include/ -I/usr/local/include -I/usr/local/opt/expat/include"
