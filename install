@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# TODO is it worth considering an alternative of a sparse home directory that gets overlaid/linked into the real one?
+# - how to deal with folders that should be linked entirely and not created?
+
 DOTFILES_ROOT=$(realpath "$0" | sed "s/\/$(basename $0)//")
 if [ "$HOME" == "/" ]; then
   HOMEDIR="/root"
