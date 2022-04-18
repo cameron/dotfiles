@@ -1,36 +1,37 @@
-;; TODO
-;; look into use-package for everything
-
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://stable.melpa.org/packages/")
         ))
 
-(setq install-these-packages '(ace-jump-mode
-                               auto-compile
-                               auto-complete
-                               fish-mode
-                               flx-ido
-                               magit
-                               expand-region
-                               elm-mode
-                               lsp-mode
-                               lsp-ui
-                               company
-                               go-mode
-                               ag
-                               doom-themes
-                               use-package
-                               markdown-mode
-                               yasnippet
-                               projectile
-                               json-mode
-                               yaml-mode))
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages)
 
-(dolist (package install-these-packages)
-  (unless (package-installed-p package)
-    (package-install package)))
-
+(mapc
+ (lambda (package)
+   (or (package-installed-p package)
+       (package-install package)))
+ '(use-package
+		ace-jump-mode
+		auto-compile
+		auto-complete
+    fish-mode
+    flx-ido
+    magit
+    expand-region
+    elm-mode
+    lsp-mode
+    lsp-ui
+    company
+    go-mode
+    ag
+    doom-themes
+    use-package
+    markdown-mode
+    yasnippet
+    projectile
+    json-mode
+    yaml-mode))
 
 (require 'auto-compile)
 (auto-compile-on-load-mode)
@@ -72,6 +73,7 @@
 (use-package lsp-mode
   :mode "\\.elm\\'"
   :bind ("C-q" . lsp-extend-selection))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -234,8 +236,8 @@
 ;;
 ;; map file types to modes
 ;;
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.jxa$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.jxa$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.md$" . gfm-mode))
 (add-to-list 'auto-mode-alist '("\\.elm$" . elm-mode))
@@ -329,3 +331,7 @@
   )
 (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
 (setq ruby-insert-encoding-magic-comment nil)
+
+;(add-to-list 'custom-theme-load-path "~/.emacs.d/moe-theme.el/")
+;(add-to-list 'load-path "~/.emacs.d/moe-theme.el/")
+;(require 'moe-theme)

@@ -36,6 +36,9 @@ brew install tmux
 brew install ag
 brew install telnet
 brew install entr
+brew install httpie
+brew install duf
+brew install bottom
 
 # fish shell
 brew install fish fd bat fzf
@@ -47,7 +50,7 @@ curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install 
 
 echo "
 Manual Things
- Settings 
+ Settings
  - three-finger drag
  - tap to click
  - shrink + auto hide dock
@@ -63,10 +66,9 @@ Manual Things
  Apps
  - docker
  - rectangle prefs
- - alfred snippets 
+ - alfred snippets
  - iTerm2 keys
 " >> TODO
 
 echo "You have a TODO list in ./TODO"
 cat TODO
-
