@@ -1,0 +1,5 @@
+#! /bin/bash
+
+cd ~/src/stable-diffusion
+. venv/bin/activate
+python scripts/img2img.py $1

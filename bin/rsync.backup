@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+dir=$(realpath "$0" | sed 's/\/[^/]*$//')
+
+time rsync \
+     -avz \
+     --exclude-from=$dir/.rsync.backup.excludes-from-repo-gitignores \
+     --exclude-from=$dir/.rsync.backup.exclude \
+     /Users/cam/{src,Documents,Pictures} \
+     rsync.net:mbp-2022/

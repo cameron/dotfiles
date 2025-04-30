@@ -3,11 +3,11 @@ _Technical snippets and sizzle_
 
 # `man` First Search
 
-- `man -k` is the same as `apropos`
-- `man -K` is the same as `whatis`
 - `apropos <str>` lists all man summaries (name + one-line description) of commands that
   mention `<str>`
 - `whatis <cmd>` is like `man <cmd> | grep -A 1 NAME | tail -1` (show just the NAME section)
+- `man -k` is the same as `apropos`
+- `man -K` is the same as `whatis`
 
 Summary: `apropos` seems handy.
 
@@ -179,3 +179,13 @@ _4/20/2020_
 _4/?/2020_
 - http://github.com/cameron/push-to-systemd, when installed on a git server, will automatically install systemd service files found in the `push-to-systemd` folder of pushed repos. this makes for fast, easy service deploys, including, e.g., a docker build step by using the ExecStartPre directive in the service file.
 - as of writing and using ansible, it's clear that the same is possible, and perhaps, preferrable, with ansible, as it doesn't require any additional software to live or run on the host. perhas the one feature that push-to-systemd has that ansible doesnt is that it pipes build output back to the user--which maybe ansible does with -vvv...
+
+# process groups and signals
+4/11/2025
+lessons
+- processes launched from a shell (like docker exec -it) get put in
+  the same group and all receive the signals sent to the parent
+- wait $pid allows the process to be interrupted by signals, but
+  leaves the child running if so
+- Popen's .wait() function hangs on (our?) defunct processes, while
+ os.waitpid does not

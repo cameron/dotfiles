@@ -1,29 +1,28 @@
-set PYENV_ROOT "$HOEM/.pyenv"
-set PATH "$HOME/bin" "$HOME/src/dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" "/usr/local/bin" "$HOME/.rbenv/shims/" "/usr/local/go/bin" "./.bin/" "$HOME/.cargo/bin" "/opt/homebrew/bin" "$PYENV_ROOT/bin" "$PATH"
-set PATH "$HOME/src/irl/infra/bin" "$PATH"
-set -x GOPATH "$HOME/src/ftx/go/ftx/" $GOPATH
+set -x PYTHONPATH "$HOME/src/python3/"
+set PATH "$HOME/bin" "$HOME/src/go/bin" "$HOME/src/dotfiles/bin" "/usr/local/Cellar/ruby/2.6.5/bin" "$HOME/Library/Python/3.7/bin/" "/usr/local/bin" "$HOME/.rbenv/shims/" "/usr/local/go/bin" "./.bin/" "$HOME/.cargo/bin" "/opt/homebrew/bin" "$PYENV_ROOT/bin" "$PATH" "$HOME/src/deepatlas/bugle/" "$HOME/src/google-cloud-sdk/bin"
+set PATH "$HOME/src/gpt/" "$PATH"
+set -x GOPATH "$HOME/src/go/" $GOPATH
 eval (pyenv init --path)
 
-set -x IRL_REPO_PATH "$HOME/src/irl/irl/"
-set -x IRL_PYTHON_REPO_PATH "$HOME/src/irl/python/"
-set -x IRL_IOS_REPO_PATH "$HOME/src/irl/ios/"
-set -x IRL_MYSQL_BINLOG_CONSUMER_REPO_PATH "$HOME/src/irl/mysql-binlog-consumer"
+
 
 set -U EDITOR emacs
 set -x EDITOR emacs # git didn't pick up the -U invocation
 set -x PUSHD_USER cameron
-
+set -x DOCKER_DEFAULT_PLATFORM linux/amd64
 set fish_greeting
 
-function __create_and_or_attach_to_tmux --on-variable PWD --description "\
-If the switched-to directory has a .tmux file, attempt to attach to an
-exiting tmux session according to the name of the directory. If such a
-session does not exist, run the .tmux file to create one and attach to it.
-"
+function __workspace_hook --on-variable PWD
   status --is-command-substitution; and return
+
   if test -f ./.tmux.workspace-init
 			tmux.workspace-join
-  end
+	else if test -n "$TMUX_PROJECT"
+			set repo_path (git rev-parse --show-toplevel 2> /dev/null)
+			if ! test -z "$repo_path"
+					tmux rename-window (basename $repo_path)
+			end
+	end
 end
 
 set -U fish_color_autosuggestion      brwhite
@@ -55,6 +54,7 @@ set -U fish_pager_color_progress      'white' '--background=cyan'
 
 alias emacs "emacs -nw"
 alias ll "ls -al"
+alias kc 'kubectl'
 
 set -x LDFLAGS "-L/usr/local/opt/openssl@1.1/lib -L/usr/local/lib -L/usr/local/opt/expat/lib"
 set -x CFLAGS "-I/usr/local/opt/openssl@1.1/include/ -I/usr/local/include -I/usr/local/opt/expat/include"
@@ -84,3 +84,9 @@ function fish_prompt
 				commandline -i 'git ' # prefix the command line with 'git' (trying it out as a feature of a dedicated git shell in workspaces)
 		end
 end
+
+# Created by `pipx` on 2024-07-11 17:13:35
+set PATH $PATH /Users/cam/.local/bin
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/cam/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/cam/Downloads/google-cloud-sdk/path.fish.inc'; end

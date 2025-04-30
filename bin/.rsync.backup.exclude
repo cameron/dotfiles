@@ -1,0 +1,5 @@
+*/node_modules
+*/dex-chrome-user-data
+*/.next
+*/.nx
+*/elm-stuff

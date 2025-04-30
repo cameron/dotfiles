@@ -1,26 +1,33 @@
+(require 'package)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://stable.melpa.org/packages/")
         ))
+; seems this is necessary to run on first run on a new machine, but not thereafter
+; (package-initialize)
 
 (unless package-archive-contents
   (package-refresh-contents))
 (package-install-selected-packages)
+
 
 (mapc
  (lambda (package)
    (or (package-installed-p package)
        (package-install package)))
  '(use-package
+    dash
 		ace-jump-mode
 		auto-compile
 		auto-complete
     fish-mode
     flx-ido
     magit
+    editorconfig
     expand-region
     elm-mode
-    lsp-mode
+    f
+;    lsp-mode
     lsp-ui
     company
     go-mode
@@ -28,16 +35,27 @@
     doom-themes
     use-package
     markdown-mode
+    s
     yasnippet
     projectile
     json-mode
-    yaml-mode))
+    yaml-mode
+    gptel))
+
+
+
 
 (require 'auto-compile)
 (auto-compile-on-load-mode)
 (auto-compile-on-save-mode)
 (setq load-prefer-newer t) ; will use .el instead of .elc if newer
-(package-initialize)
+
+(add-to-list 'load-path "~/src/gpt.el/")
+(require 'gpt)
+
+(add-to-list 'load-path "~/src/dotfiles/.emacs.d.symlink/")
+(require 'typescript-mode)
+(require 'tsx-ts-helper-mode)
 
 
 ;;
@@ -47,7 +65,7 @@
 (menu-bar-mode -1)
 (desktop-save-mode 1)
 (show-paren-mode)
-(global-linum-mode t)
+;(global-linum-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'after-init-hook 'global-company-mode)
 (setq column-number-mode t)
@@ -70,9 +88,10 @@
 (use-package elm-mode
 	:mode "\\.elm\\'")
 
-(use-package lsp-mode
-  :mode "\\.elm\\'"
-  :bind ("C-q" . lsp-extend-selection))
+;; TODO
+;; (use-package lsp-mode
+;;   :mode "\\.elm\\'"
+;;   :bind ("C-q" . lsp-extend-selection))
 
 
 (custom-set-variables
@@ -83,6 +102,8 @@
  '(backup-directory-alist '(("." . "~/.emacs.d/autosaves")))
  '(create-lockfiles nil)
  '(css-indent-offset 2)
+ '(custom-safe-themes
+   '("f366d4bc6d14dcac2963d45df51956b2409a15b770ec2f6d730e73ce0ca5c8a7" "bbb13492a15c3258f29c21d251da1e62f1abb8bbd492386a673dcfab474186af" "7fd8b914e340283c189980cd1883dbdef67080ad1a3a9cc3df864ca53bdc89cf" "b98ec4f494d915790c75439c02fc2f5ec4c0098e3965bd09b0aa0669225298ae" default))
  '(debug-on-error nil)
  '(desktop-path '("."))
  '(desktop-save t)
@@ -93,6 +114,7 @@
  '(fill-column 90)
  '(frame-background-mode 'dark)
  '(gc-cons-threshold 50000000)
+ '(indent-tabs-mode nil)
  '(js-indent-level 2 t)
  '(js2-basic-offset 2)
  '(js2-strict-inconsistent-return-warning nil)
@@ -105,19 +127,19 @@
  '(lsp-enable-symbol-highlighting nil)
  '(lsp-log-io nil)
  '(package-selected-packages
-	 '(## php-mode lsp-mssql flycheck-elm flycheck lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package projectile magit json-mode go-mode flx-ido fish-mode expand-region doom-themes auto-complete ag ace-jump-mode))
+   '(spacemacs-theme gptai gptel web-mode rjsx-mode typescript-mode ## php-mode lsp-mssql flycheck-elm flycheck lsp-ui company list-packages-ext lsp-mode elm-mode js2-mode yasnippet yaml-imenu use-package projectile magit json-mode go-mode flx-ido fish-mode expand-region doom-themes auto-complete ag ace-jump-mode))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-directories
-	 '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "build" "node_modules" "dist" "FB SketchKit.sketchplugin/Contents/Resources/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreExporter/webview/" "FB SketchKit.sketchplugin/Contents/Sketch/Data/webview/selectQuery/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreNative/webview/" "public/assets/*"))
+   '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "build" "node_modules" "dist" "FB SketchKit.sketchplugin/Contents/Resources/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreExporter/webview/" "FB SketchKit.sketchplugin/Contents/Sketch/Data/webview/selectQuery/" "FB SketchKit.sketchplugin/Contents/Sketch/SemaphoreNative/webview/" "public/assets/*"))
  '(projectile-globally-ignored-file-suffixes '("*.min.js" ".png" ".gif" ".json"))
  '(projectile-globally-ignored-files '("*.log*" "*#*" "TAGS"))
  '(projectile-mode-line
-	 '(:eval
-		 (if
-				 (file-remote-p default-directory)
-				 " Projectile"
-			 (format " Projectile[%s]"
-							 (projectile-project-name)))))
+   '(:eval
+     (if
+         (file-remote-p default-directory)
+         " Projectile"
+       (format " Projectile[%s]"
+               (projectile-project-name)))))
  '(python-indent-offset 2)
  '(safe-local-variable-values '((flycheck-disabled-checkers emacs-lisp-checkdoc)))
  '(sh-basic-offset 2)
@@ -127,26 +149,30 @@
  '(split-height-threshold nil)
  '(split-width-threshold nil)
  '(tab-width 2)
+ '(tags-revert-without-query t)
  '(tramp-default-method "ssh")
- '(tramp-mode nil))
+ '(tramp-mode nil)
+ '(typescript-indent-level 2)
+ '(web-mode-code-indent-offset 2)
+ '(web-mode-markup-indent-offset 2))
 ; '(vline-idle-time 0.04))
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(dired-ignored ((t (:inherit brightgreen))))
- '(font-lock-comment-face ((t (:foreground "color-245"))))
- '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "color-243"))))
- '(js2-external-variable ((t (:foreground "color-33"))))
- '(js2-function-call ((t (:inherit color-229))))
- '(js3-external-variable-face ((t (:foreground "color-51"))))
- '(js3-function-param-face ((t (:foreground "color-34"))))
- '(linum ((t (:foreground "brightgreen" :weight bold))))
- '(region ((t (:background "color-25"))))
- '(smerge-refined-added ((t (:inherit smerge-refined-change :background "color-84")))))
-; '(vline ((t (:background "color-236")))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(dired-ignored ((t (:inherit brightgreen))))
+;;  '(font-lock-comment-face ((t (:foreground "color-245"))))
+;;  '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "color-243"))))
+;;  '(js2-external-variable ((t (:foreground "color-33"))))
+;;  '(js2-function-call ((t (:inherit color-229))))
+;;  '(js3-external-variable-face ((t (:foreground "color-51"))))
+;;  '(js3-function-param-face ((t (:foreground "color-34"))))
+;;  '(linum ((t (:foreground "brightgreen" :weight bold))))
+;;  '(region ((t (:background "color-25"))))
+;;  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "color-84")))))
+;; ; '(vline ((t (:background "color-236")))))
 
 (require 'ag)
 
@@ -198,6 +224,10 @@
 (global-set-key (kbd "C-t") 'transpose-sexps)
 (global-set-key (kbd "M-t") 'transpose-chars)
 
+(global-set-key (kbd "M-g a") 'gptel-add-file)
+(setq gptel-log-level 'debug)
+
+
 (global-unset-key (kbd "C-h h"))
 (global-unset-key (kbd "M-o"))
 (global-set-key (kbd "M-o") 'other-window)
@@ -241,11 +271,12 @@
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.md$" . gfm-mode))
 (add-to-list 'auto-mode-alist '("\\.elm$" . elm-mode))
+(add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
 
-
-
-
-
+(use-package typescript-mode
+  :mode "\\.ts\\'")
+(use-package typescript-mode
+  :mode "\\.tsx\\'")
 
 ;;
 ;; mode settings and hooks
@@ -332,6 +363,23 @@
 (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
 (setq ruby-insert-encoding-magic-comment nil)
 
-;(add-to-list 'custom-theme-load-path "~/.emacs.d/moe-theme.el/")
-;(add-to-list 'load-path "~/.emacs.d/moe-theme.el/")
-;(require 'moe-theme)
+(add-to-list 'custom-theme-load-path "~/src/zenburn-emacs/")
+(add-to-list 'load-path "~/src/zenburn-emacs/")
+(load-theme 'zenburn)
+
+; html mode
+; (define-key html-mode-map "\M-o/" nil)
+
+; project-specific init
+(let ((project-init ".init.el"))
+  (when (file-exists-p ".init.el")
+    (load-file ".init.el"))
+  )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(font-lock-string-face ((t (:foreground "yellowgreen"))))
+ '(rjsx-attr ((t (:foreground "lightgoldenrod"))))
+ '(rjsx-tag ((t (:foreground "darkseagreen")))))

@@ -8,10 +8,10 @@
 # homebrew
 which brew 2> /dev/null
 if [[ $? != 0 ]]; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    echo "*****"
-    echo "Follow the instructions for adding brew to your path, and then re-run $0"
-    exit 0
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "************"
+  echo "[osx-init] Follow the instructions above for adding brew to your path, and then re-run $0"
+  exit 0
 fi
 
 

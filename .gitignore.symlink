@@ -16,6 +16,7 @@ Icon
 # personal
 .#*
 .tmux.workspace.init
+.tmux.workspace-init
 .tmux.workspace.cleanup
 .projectile
 cam.md
@@ -26,21 +27,3 @@ cam.md
 .wepl*
 
 .git-borrowed
-
-
-
-# pushd
-console.init.rb
-*.draft
-script/websocket*
-db/migrate/*later
-test/models/test_testy.rb
-.db-migrations.hash
-.which-tests/*
-.srcwatch/*
-*Breakpoints_v2.xcbkptlist
-.admin-init
-.scratch
-.wepl
-.gem-hash
-.bin

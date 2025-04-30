@@ -17,4 +17,4 @@ if [[ -z "$remote_port" ]]; then
 	remote_port=$local_port
 fi
 
-ssh -NR $local_port:localhost:$remote_port $host
+ssh -NR $remote_port:localhost:$local_port $host

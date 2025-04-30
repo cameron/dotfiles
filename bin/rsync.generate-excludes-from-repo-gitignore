@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+TARGET=/Users/cam/bin/.rsync.backup.excludes-from-repo-gitignores
+echo "" > $TARGET
+for d in /Users/cam/src/*/; do
+  f=$d/.gitignore
+  if [ -f $f ]; then
+    prefix=$(basename $d)
+
+    # ignore comments, empty lines, prefix the entries, and remove double slashes
+    cat $f | grep -v '^#' | grep -v '^$' | sed "s/^/$prefix\//" | sed 's/\/\//\//' >> $TARGET
+  fi
+done
