@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+
+date > ~/sshfs.log
+
+mkdir -p ~/rsync.net
+sshfs sd1026@sd1026.rsync.net: ~/rsync.net -oauto_cache,reconnect,local,volname=rsync.net,allow_other,defer_permissions,noappledouble,ServerAliveInterval=15,ServerAliveCountMax=3,IdentityFile=/Users/cam/.ssh/id_rsa
+
+sleep 2
+ls ~/rsync.net >> ~/sshfs.log
+date >> ~/sshfs.log
+sleep 10
